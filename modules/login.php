@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>login here</title>
-</head>
-<body>
-<form action="verify.php" method="post">
-<h3>LOGIN PAGE</h3>
-<center>
-<table border="1" >
-<tr>
-<td><b> UserName </b></td><td><input type="text" name="name" maxlength="10" value="name"></td>
-</tr>
-<tr>
-<td><b> PassWord </b></td><td><input type="password" name="pass" ></td>
-</tr>
-<tr><td><input type="submit" name="submit" value="SUBMIT"></td>
-<td><input type="reset" name="reset" value="RESET" ></td>
-</tr>
-<tr><td>ForNewRegistration</td>
-<td><a href="signup.php">register here</a></td>
-</tr>
-</table></center>
+<form class="form-horizontal" action="modules/verify.php" method="post">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputEmail3" name="name" placeholder="Username">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3"  name="pass" placeholder="Password">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" name="submit" class="btn btn-default">Sign in</button>
+    </div>
+  </div>
 </form>
-</body>
-</html>
