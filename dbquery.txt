@@ -1,0 +1,6 @@
+SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id = 2
+
+
+===========
+
+
