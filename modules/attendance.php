@@ -45,7 +45,7 @@
 		<tr>
 			<th>Roll No</th>
 			<th>Name</th>
-			<th>isPresent</th>
+			<th><input type="checkbox" class="chk-head" /> isPresent</th>
 		</tr>
 	</thead>
 
@@ -83,17 +83,17 @@
 					if(($rstu[$i]['sid'] ==  $attData[$i]['sid']) && ($attData[$i]['ispresent']))
 					{
 
-						echo "<td><input checked type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
+						echo "<td><input class='chk-present' checked type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
 					}
 					else
 					{
-						echo "<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
+						echo "<td><input class='chk-present' type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
 					}
 				}
 				else {
 					echo"<td>".$rstu[$i]['rollno']."<input type='hidden' name='st_sid[]' value='" . $rstu[$i]['sid'] . "'></td>";
 					echo"<td>".$rstu[$i]['name']."</td>";
-					echo"<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";	
+					echo"<td><input class='chk-present' type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";	
 				}
 				
 				
