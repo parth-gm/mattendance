@@ -1,4 +1,9 @@
 <?php include 'config.php';?>
+<?php
+	$updateFlag = 0;
+?>
+
+
 <h1 class="page-header">Take Attendance</h1>  
 <form action="index.php" method="get">
 	<div class="form-group">
@@ -46,16 +51,48 @@
 
 	<?php
 			
-			$qu = "SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id  = {$_GET['subject']}";
+
+		$que= "SELECT sid, id, ispresent  from attendance  WHERE id  = {$_GET['subject']} ORDER BY sid";
+		$ret=$conn->query($que);
+		$attData=$ret->fetchAll(PDO::FETCH_ASSOC);
+		
+		if(count($attData))
+		{
+			$updateFlag=1;
+		}
+		else{
+			$updateFlag=0;
+
+		}
+
+			$qu = "SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id  = {$_GET['subject']}  ORDER BY student.sid";
 		$stu=$conn->query($qu);
 		$rstu=$stu->fetchAll(PDO::FETCH_ASSOC);
+
+		
 		echo"<tbody>";
 		for($i = 0; $i<count($rstu); $i++)
 		{
 			echo"<tr>";
-				echo"<td>".$rstu[$i]['rollno']."</td>";
+				echo"<td>".$rstu[$i]['rollno']."<input type='hidden' name='st_sid[]' value='" . $rstu[$i]['sid'] . "'></td>";
 				echo"<td>".$rstu[$i]['name']."</td>";
-				echo"<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
+
+				if($updateFlag) {
+					if(($rstu[$i]['sid'] ==  $attData[$i]['sid']) && ($attData[$i]['ispresent']))
+					{
+
+						echo "<td><input checked type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
+					}
+					else
+					{
+						echo "<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
+					}
+				}
+				else {
+					echo"<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";	
+				}
+				
+				
 			echo"</tr>";
 		}
 		echo"</tbody>";
@@ -63,7 +100,12 @@
 	?>
 </table> 
 
-<input type="hidden" name="saveData" value="1">
+<?php if($updateFlag) : ?>
+	<input type="hidden" name="updateData" value="1">
+<?php else: ?>
+	<input type="hidden" name="updateData" value="0">
+<?php endif; ?>
+
 <input type="hidden" name="date" value="<?php print isset($_GET['date']) ? $_GET['date'] : ''; ?>">
 <input type="hidden" name="subject" value="<?php print isset($_GET['subject']) ? $_GET['subject'] : ''; ?>">
 <input type="submit" class="btn btn-primary" name="sbt_top" value="Save Attendance">
@@ -72,33 +114,44 @@
 </form>
 <?php
 
-	if(isset($_POST['saveData']) ) {
-	
-		// prepare sql and bind parameters
-	    $date = 99;
-	    $id = $_POST['subject'];
-	    $uid = 1;
-	    $p = 1;
-	    $ispresent =  $_POST['chbox'];
-	    print_r($ispresent);
-	    $n = count($ispresent);
-		echo("<br>You selected $n student:<br> ");
-	    for($j = 0; $j < count($n); $j++)
-	    {
-	    		echo "hii".$ispresent[$j];
-		 		$stmtInsert = $conn->prepare("INSERT INTO attendance (sid, date, ispresent, uid, id) 
-				VALUES (:sid, :date, :ispresent, :uid, :id)");
-			    $stmtInsert->bindParam(':sid', $ispresent[$j]);
-			    $stmtInsert->bindParam(':date', $date);
-			    $stmtInsert->bindParam(':ispresent', $p);
-			    $stmtInsert->bindParam(':uid', $uid);
-			    $stmtInsert->bindParam(':id', $id);
-			  	echo $stmtInsert."<br>";     
-			    $stmtInsert->execute();
+	if (isset($_POST['sbt_top'])) {
+		if(isset($_POST['updateData']) && ($_POST['updateData'] == 1) ) {
 			
-		}		
-	}
-	
+		}
+		else {
+			
+			// prepare sql and bind parameters
+		    $date = 888;
+		    $id = $_POST['subject'];
+		    $uid = 1;
+		    $p = 0;
+		    $st_sid =  $_POST['st_sid'];
+		    $ispresent = array();
+		    if (isset($_POST['chbox'])) {
+		    	$ispresent =  $_POST['chbox'];	
+		    }
+		    
+		    for($j = 0; $j < count($st_sid); $j++)
+		    {
+		    		echo "hii";
+		    		$stmtInsert = $conn->prepare("INSERT INTO attendance (sid, date, ispresent, uid, id) 
+					VALUES (:sid, :date, :ispresent, :uid, :id)");
+				    
+				    if (count($ispresent)) {
+				    	$p = (in_array($st_sid[$j], $ispresent)) ? 1 : 0;	
+				    }
+		    		
+
+				    $stmtInsert->bindParam(':sid', $st_sid[$j]);
+				    $stmtInsert->bindParam(':date', $date);
+				    $stmtInsert->bindParam(':ispresent', $p);
+				    $stmtInsert->bindParam(':uid', $uid);
+				    $stmtInsert->bindParam(':id', $id); 
+				    $stmtInsert->execute();
+					echo "data upadted".$j;
+			}		
+		}
+	}			
 
 
 
