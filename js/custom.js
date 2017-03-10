@@ -25,4 +25,15 @@ $(document).ready(function () {
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });  
+	
+	// Select All checkbox
+	$('.chk-head').click(function () {
+		if ($('.chk-head').is(':checked')) {
+			$('.chk-present').prop('checked', true);
+		}
+		else {
+			$('.chk-present').prop('checked', false);
+		}
+	});
+	
 });
