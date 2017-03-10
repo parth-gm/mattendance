@@ -52,7 +52,7 @@
 	<?php
 			
 
-		$que= "SELECT sid, id, ispresent  from attendance  WHERE id  = {$_GET['subject']} ORDER BY sid";
+		$que= "SELECT sid, aid, ispresent  from attendance  WHERE id  = {$_GET['subject']} ORDER BY sid";
 		$ret=$conn->query($que);
 		$attData=$ret->fetchAll(PDO::FETCH_ASSOC);
 		
@@ -74,10 +74,12 @@
 		for($i = 0; $i<count($rstu); $i++)
 		{
 			echo"<tr>";
-				echo"<td>".$rstu[$i]['rollno']."<input type='hidden' name='st_sid[]' value='" . $rstu[$i]['sid'] . "'></td>";
+
+			if($updateFlag) {
+				echo"<td>".$rstu[$i]['rollno']."<input type='hidden' name='st_sid[]' value='" . $rstu[$i]['sid'] . "'>" ."<input type='hidden' name='att_id[]' value='" . $attData[$i]['aid'] . "'>".  "</td>";
 				echo"<td>".$rstu[$i]['name']."</td>";
 
-				if($updateFlag) {
+				
 					if(($rstu[$i]['sid'] ==  $attData[$i]['sid']) && ($attData[$i]['ispresent']))
 					{
 
@@ -89,6 +91,8 @@
 					}
 				}
 				else {
+					echo"<td>".$rstu[$i]['rollno']."<input type='hidden' name='st_sid[]' value='" . $rstu[$i]['sid'] . "'></td>";
+					echo"<td>".$rstu[$i]['name']."</td>";
 					echo"<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";	
 				}
 				
@@ -116,7 +120,37 @@
 
 	if (isset($_POST['sbt_top'])) {
 		if(isset($_POST['updateData']) && ($_POST['updateData'] == 1) ) {
-			
+				
+			// prepare sql and bind parameters
+		    $date = 888;
+		    $id = $_POST['subject'];
+		    $uid = 1;
+		    $p = 0;
+		    $st_sid =  $_POST['st_sid'];
+		    $attt_aid =  $_POST['att_id'];
+		    $ispresent = array();
+		    if (isset($_POST['chbox'])) {
+		    	$ispresent =  $_POST['chbox'];	
+		    }
+		    
+		    for($j = 0; $j < count($st_sid); $j++)
+		    {
+		    		echo "hii";
+					// UPDATE `attendance` SET `ispresent` = '1' WHERE `attendance`.`aid` = 79;
+
+		    		$stmtInsert = $conn->prepare("UPDATE attendance SET ispresent = :isMarked WHERE aid = :aid"); 
+									    
+				    if (count($ispresent)) {
+				    	$p = (in_array($st_sid[$j], $ispresent)) ? 1 : 0;	
+				    }
+		    		
+				    $stmtInsert->bindParam(':isMarked', $p);
+				    $stmtInsert->bindParam(':aid', $attt_aid[$j]); 
+				    $stmtInsert->execute();
+					echo "data upadted";
+			}		
+
+
 		}
 		else {
 			
