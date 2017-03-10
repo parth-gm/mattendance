@@ -47,18 +47,15 @@
 	<?php
 			
 			$qu = "SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id  = {$_GET['subject']}";
-		$st=$conn->query($qu);
-		$r=$st->fetchAll(PDO::FETCH_ASSOC);
+		$stu=$conn->query($qu);
+		$rstu=$stu->fetchAll(PDO::FETCH_ASSOC);
 		echo"<tbody>";
-		for($i = 0; $i<count($r); $i++)
+		for($i = 0; $i<count($rstu); $i++)
 		{
 			echo"<tr>";
-				echo"<td>".$r[$i]['rollno']."</td>";
-				echo"<td>".$r[$i]['name']."</td>";
-				/*if ($_GET['chbox[]'] == $r[$i]['id']) {
-					echo"<option value='". $r[$i]['id']."' selected='selected'>".$r[$i]['name']."</option>";
-				}*/
-				echo"<td><input type='checkbox' name='chbox[]' value='" . $r[$i]['sid'] . "'></td>";
+				echo"<td>".$rstu[$i]['rollno']."</td>";
+				echo"<td>".$rstu[$i]['name']."</td>";
+				echo"<td><input type='checkbox' name='chbox[]' value='" . $rstu[$i]['sid'] . "'></td>";
 			echo"</tr>";
 		}
 		echo"</tbody>";
@@ -78,21 +75,28 @@
 	if(isset($_POST['saveData']) ) {
 	
 		// prepare sql and bind parameters
-	    $stmtInsert = $conn->prepare("INSERT INTO attendance (sid, date, ispresent, uid, id) 
-	    VALUES (:sid, :date, :ispresent, :uid, :id)");
-	    $stmtInsert->bindParam(':sid', $sid);
-	    $stmtInsert->bindParam(':date', $date);
-	    $stmtInsert->bindParam(':ispresent', $ispresent);
-	    $stmtInsert->bindParam(':uid', $uid);
-	    $stmtInsert->bindParam(':id', $id);
-
-	    $sid = 3;
-	    $date = 664;
-	    $ispresent = 1;
-	    $uid = 3;
-	    $id = 1;
-	    $stmtInsert->execute();
-		
+	    $date = 99;
+	    $id = $_POST['subject'];
+	    $uid = 1;
+	    $p = 1;
+	    $ispresent =  $_POST['chbox'];
+	    print_r($ispresent);
+	    $n = count($ispresent);
+		echo("<br>You selected $n student:<br> ");
+	    for($j = 0; $j < count($n); $j++)
+	    {
+	    		echo "hii".$ispresent[$j];
+		 		$stmtInsert = $conn->prepare("INSERT INTO attendance (sid, date, ispresent, uid, id) 
+				VALUES (:sid, :date, :ispresent, :uid, :id)");
+			    $stmtInsert->bindParam(':sid', $ispresent[$j]);
+			    $stmtInsert->bindParam(':date', $date);
+			    $stmtInsert->bindParam(':ispresent', $p);
+			    $stmtInsert->bindParam(':uid', $uid);
+			    $stmtInsert->bindParam(':id', $id);
+			  	echo $stmtInsert."<br>";     
+			    $stmtInsert->execute();
+			
+		}		
 	}
 	
 
