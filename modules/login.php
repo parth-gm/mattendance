@@ -2,7 +2,7 @@
 <div class="container">
 	
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-lg-6">
+		<div class="col-md-6 col-md-offset-3 col-lg-6 text-center">
 			<img src="images/mattendance_logo_small.png" alt="mAttendance">
 			<h4>Teacher's Section</h4>
 		</div>
@@ -27,7 +27,7 @@
 	</div>
 	<hr class="col-md-offset-3 col-md-6" />
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-lg-6">
+		<div class="col-md-6 col-md-offset-3 col-lg-6 text-center">
 			<h4>Student's Section</h4>
 		</div>
 	</div>
