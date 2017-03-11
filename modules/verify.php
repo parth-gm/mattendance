@@ -26,7 +26,7 @@
 					
 					    $_SESSION['islogin'] ="1";
 					
-					header("location:dashboard.php");
+					header("location:attendance.php");
 		   		}
 		   		else
 		   		{

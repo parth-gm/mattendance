@@ -7,8 +7,9 @@
 		</button>
 			<div class="container">
 				<div class="row">
-				    <?php // include 'modules/login.php';?>
-					<?php include 'modules/attendance.php';?>
+				    <?php  include 'modules/login.php'; ?>
+
+					<?php //include 'modules/attendance.php';?>
 				</div>
 			</div>
 	</div>

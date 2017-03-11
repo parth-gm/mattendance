@@ -37,7 +37,6 @@
 
 <?php
 	if(isset($_GET['date']) && isset($_GET['subject'])) :
-
 ?>
 <form action="index.php" method="post">
 <table class="table table-striped table-hover ">
@@ -65,7 +64,7 @@
 
 		}
 
-			$qu = "SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id  = {$_GET['subject']}  ORDER BY student.sid";
+		$qu = "SELECT student.sid, student.name, student.rollno from student INNER JOIN student_subject WHERE student.sid = student_subject.sid AND student_subject.id  = {$_GET['subject']}  ORDER BY student.sid";
 		$stu=$conn->query($qu);
 		$rstu=$stu->fetchAll(PDO::FETCH_ASSOC);
 
@@ -122,7 +121,7 @@
 		if(isset($_POST['updateData']) && ($_POST['updateData'] == 1) ) {
 				
 			// prepare sql and bind parameters
-		    $date = 888;
+		
 		    $id = $_POST['subject'];
 		    $uid = 1;
 		    $p = 0;
@@ -155,7 +154,8 @@
 		else {
 			
 			// prepare sql and bind parameters
-		    $date = 888;
+		    $date = $_POST['date'];
+			$tstamp = strtotime($date);
 		    $id = $_POST['subject'];
 		    $uid = 1;
 		    $p = 0;
@@ -177,7 +177,7 @@
 		    		
 
 				    $stmtInsert->bindParam(':sid', $st_sid[$j]);
-				    $stmtInsert->bindParam(':date', $date);
+				    $stmtInsert->bindParam(':date', $tstamp);
 				    $stmtInsert->bindParam(':ispresent', $p);
 				    $stmtInsert->bindParam(':uid', $uid);
 				    $stmtInsert->bindParam(':id', $id); 
