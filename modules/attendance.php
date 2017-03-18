@@ -49,9 +49,11 @@
 	</thead>
 
 	<?php
-			
-
-		$que= "SELECT sid, aid, ispresent  from attendance  WHERE id  = {$_GET['subject']} ORDER BY sid";
+		 $dat = $_GET['date'];
+		 $ddate = strtotime($dat);
+		 $sub=$_GET['subject'];
+		$que= "SELECT sid, aid, ispresent  from attendance  WHERE date  =$ddate
+		AND id=$sub ORDER BY sid";
 		$ret=$conn->query($que);
 		$attData=$ret->fetchAll(PDO::FETCH_ASSOC);
 		

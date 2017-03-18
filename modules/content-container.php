@@ -12,11 +12,11 @@
 				?>
 				    <?php  
 				 
-				    	//include 'modules/login.php';
+				    			include 'modules/login.php';
 
 				     
 				    	
-								include 'modules/attendance.php';
+								//include 'modules/attendance.php';
 					?>
 				</div>
 			</div>
