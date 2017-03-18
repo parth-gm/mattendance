@@ -32,11 +32,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-lg-6>
+    <div class="col-md-6 col-md-offset-3 col-lg-6">
       <form class="form-horizontal" action="modules/studentdata.php" method="post">
         <div class="form-group">
           <label for="rollno" class="control-label">Roll No.</label>
           <input type="text" class="form-control" id="rollno"  name="rollno" placeholder="Roll No.">
+           <input type="submit" name="ssubmit"  value=" GO ">
         </div>
       </form>
     </div>  
@@ -76,7 +77,7 @@
             
                 $_SESSION['islogin'] ="1";
             
-            header("location:modules/attendance.php");
+              //header("location:modules/attendance.php");
             }
             else
             {
