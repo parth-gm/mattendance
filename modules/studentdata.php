@@ -38,8 +38,8 @@
 	     	for($k=0;$k<count($result2);$k++)
 	     	{
 	     		$tmdat=$result2[$k]['date'];
-	     		echo"<th colspan='2'>$tmdat</th>";
-	     	}
+	     		echo"<th colspan='2'>".date("d-m-Y",$tmdat)."</th>";
+	     	}//echo(date("Y-m-d",$t));
 	     	 	
 	     	echo"<th colspan='2'>TOTAL</th><th colspan='2'>PER%</th></tr>";
 	    
@@ -55,12 +55,17 @@
 			$dnottaken=0;
 			$dttaken=0;
 	     	echo"<tr>";
-	     	$sub=$result3[$nosub]['id'];
+	     	$subid=$result3[$nosub]['id'];
+	     	$sqql = "SELECT name FROM subject where $subid=id";
+	    	 $stmt4 = $conn->prepare($sqql);
+		 	$stmt4->execute();
+	     	$result4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);	
+	     	$sub=$result4[0]['name'];
 	     	echo"<td colspan='2'>$sub</td>";
 		    for($i=0;$i<count($result2);$i++)
 		   	 {
 		   	 	$tmdat=$result2[$i]['date'];
-		   	 	$sql1= "SELECT ispresent FROM attendance where sid=$tempid 		AND id=$sub AND date=$tmdat ORDER BY date";
+		   	 	$sql1= "SELECT ispresent FROM attendance where sid=$tempid 		AND id=$subid AND date=$tmdat ORDER BY date";
 		   	 	$stmt1 = $conn->prepare($sql1);	
 		   	 	$stmt1->execute();
 				$result1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);	 
