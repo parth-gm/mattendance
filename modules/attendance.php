@@ -136,7 +136,7 @@
 		    
 		    for($j = 0; $j < count($st_sid); $j++)
 		    {
-		    		echo "hii";
+		    		//echo "hii";
 					// UPDATE `attendance` SET `ispresent` = '1' WHERE `attendance`.`aid` = 79;
 
 		    		$stmtInsert = $conn->prepare("UPDATE attendance SET ispresent = :isMarked WHERE aid = :aid"); 
@@ -148,9 +148,9 @@
 				    $stmtInsert->bindParam(':isMarked', $p);
 				    $stmtInsert->bindParam(':aid', $attt_aid[$j]); 
 				    $stmtInsert->execute();
-					echo "data upadted";
+					//echo "data upadted";
 			}		
-
+			echo"<br><strong>You Are Succesfully Updated Attendance</strong>";	
 
 		}
 		else {
@@ -169,7 +169,7 @@
 		    
 		    for($j = 0; $j < count($st_sid); $j++)
 		    {
-		    		echo "hii";
+		    		//echo "hii";
 		    		$stmtInsert = $conn->prepare("INSERT INTO attendance (sid, date, ispresent, uid, id) 
 					VALUES (:sid, :date, :ispresent, :uid, :id)");
 				    
@@ -184,8 +184,9 @@
 				    $stmtInsert->bindParam(':uid', $uid);
 				    $stmtInsert->bindParam(':id', $id); 
 				    $stmtInsert->execute();
-					echo "data upadted".$j;
-			}		
+				//	echo "data upadted".$j;
+			}
+			echo"<br><strong>You Are Succesfully Take Attendance</strong>";		
 		}
 	}			
 
