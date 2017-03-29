@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3 col-lg-6">
-      <form class="form-horizontal" id="loginForm" action="index.php" method="post" data-toggle="validator">
+      <form class="form-horizontal" id="loginForm" action="modules/verify.php" method="post" data-toggle="validator">
         <div class="form-group">
           <label for="inputEmail3" class="control-label">Username</label>
           <input type="text" class="form-control" id="inputEmail3" name="name" maxlength="16" placeholder="Username" required>
@@ -30,15 +30,17 @@
   </div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3 col-lg-6">
-      <form class="form-horizontal" action="modules/studentdata.php" method="post" id="studentForm" data-toggle="validator">
+      <form class="form-horizontal" action="index.php" method="post" id="studentForm" data-toggle="validator">
         <div class="form-group">
           <label for="rollno" class="control-label">Roll No.</label>
-          <input type="text" class="form-control" id="rollno" maxlength="6" name="rollno" placeholder="Roll No." required>
+          <input type="number" class="form-control" id="rollno" maxlength="6" name="rollno" placeholder="Roll No." required>
         </div>
 				
 				<div class="form-group">
-					<input type="submit" name="ssubmit" class="btn btn-success btn-block" value="GO">
+					<input type="submit" name="submit" class="btn btn-success btn-block" value="GO">
 				</div>
+				
+				<input type="hidden" name="student" value="y" />
       </form>
     </div>  
   </div>
@@ -55,53 +57,3 @@
 	$('#studentForm').validator();
 </script>
 
-
-    <?php
-
-     include 'config.php';
-     if(isset($_POST['submit']))
-     {
-         $nm=$_POST['name'];
-       
-        $pass=$_POST['pass'];
-        if( isset($nm) && isset($pass))
-      {
-        if(!empty($nm) && !empty($pass) )
-        {
-
-
-          
-    
-          $stmt = $conn->prepare("SELECT * FROM user WHERE uname= '$nm' AND password='$pass'"); 
-            $stmt->execute();
-
-             
-             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-              print_r($result);
-            if(count($result))
-            {
-              print_r($result);
-          
-            echo "<br>sucssess"; 
-            session_start();
-            // Use $HTTP_SESSION_VARS with PHP 4.0.6 or less
-            
-                $_SESSION['islogin'] ="1";
-            
-              //header("location:modules/attendance.php");
-            }
-            else
-            {
-               header("location:../index.php");
-            }
-            
-            
-          }else
-          {
-             header("location:../index.php");
-            echo "problem with credential";   
-          }
-        }
-      }
-
-?>

@@ -50,7 +50,7 @@
 				<input type="submit" class="btn btn-primary btn-block" name="sbt_top" value="Save Attendance">
 			</div>
 			
-			<table class="table table-striped table-hover ">
+			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Roll No</th>

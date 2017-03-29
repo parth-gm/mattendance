@@ -2,7 +2,7 @@
 
 <?php
 
-     include 'config.php';
+     include 'config1.php';
      if(isset($_POST['submit']))
      {
          $nm=$_POST['name'];
@@ -32,7 +32,7 @@
             
                 $_SESSION['islogin'] ="1";
             
-            header("location:modules/attendance.php");
+							header("location:../index.php");
             }
             else
             {

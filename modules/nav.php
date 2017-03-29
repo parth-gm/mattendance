@@ -7,19 +7,19 @@
 						</a>
 				</li>
 				<li>
-						<a href="#"><i class="fa fa-home"></i> Dashboard</a>
+						<a href="index.php?page=dashboard"><i class="fa fa-home"></i> Dashboard</a>
 				</li>
 				<li>
-						<a href="#"><i class="fa fa-pencil-square-o"></i> Take Attendance</a>
+						<a href="index.php"><i class="fa fa-pencil-square-o"></i> Take Attendance</a>
 				</li>
 				<li>
-						<a href="#"><i class="fa fa-book"></i> Reports</a>
+						<a href="index.php?page=reports"><i class="fa fa-book"></i> Reports</a>
 				</li>
 				<li>
-						<a href="#"><i class="fa fa-info"></i> Help</a>
+						<a href="index.php?page=help"><i class="fa fa-info"></i> Help</a>
 				</li>
 				<li>
-						<a href="#"><i class="fa fa-sign-out"></i> Logout</a>
+						<a href="index.php?page=logout"><i class="fa fa-sign-out"></i> Logout</a>
 				</li>
 		</ul>
 </nav>
