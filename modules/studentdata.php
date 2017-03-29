@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
-					<h1 class="page-header"><?php print $tempnm . '<span>' . $rollno . '</span>'; ?>'s Attendance</h1>  
+					<h1 class="page-header"><?php print $tempnm . '<span> ( ' . $rollno . ' ) </span>'; ?>'s Attendance</h1>  
 				</div>
 			</div>
 			<div class="row">
@@ -116,9 +116,6 @@
 					$tper=(100*$present)/$tlec;
 					echo "<br>your present dayes out of working days:".$present."/".$tlec;
 					echo "<br>your attandance:".$tper."<br>";
-				
-				 
-					
 				}
 				else {
 					header("location:../index.php");

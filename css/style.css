@@ -273,3 +273,11 @@
 .margin-top-bottom-medium {
 	margin: 20px 0;
 }
+
+h1 span {
+	font-size: 20px;
+	color: #317eac;
+	padding: 0 10px;
+	text-transform: capitalize;
+}
+
