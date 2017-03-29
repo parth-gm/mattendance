@@ -281,3 +281,7 @@ h1 span {
 	text-transform: capitalize;
 }
 
+.no-column-padding {
+	padding-left: 0;
+	padding-right: 0;
+}

@@ -6,9 +6,18 @@
     </div>
   </div>
   <div class="row">
+		<?php if(isset($_GET['invalid'])) : ?>
+			<div class="col-md-6 col-md-offset-3 col-lg-6 no-column-padding">
+				<div class="form-group alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Sorry!</strong> Invalid Username Or Password.
+				</div>
+			</div>
+		<?php endif; ?>
+	
     <div class="col-md-6 col-md-offset-3 col-lg-6">
       <form class="form-horizontal" id="loginForm" action="modules/verify.php" method="post" data-toggle="validator">
-        <div class="form-group">
+				<div class="form-group">
           <label for="inputEmail3" class="control-label">Username</label>
           <input type="text" class="form-control" id="inputEmail3" name="name" maxlength="16" placeholder="Username" required>
         </div>
@@ -29,6 +38,15 @@
     </div>
   </div>
   <div class="row">
+		<?php if(isset($_GET['student'])) : ?>
+			<div class="col-md-6 col-md-offset-3 col-lg-6 no-column-padding">
+				<div class="form-group alert alert-dismissible alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Sorry!</strong> Invalid Student Roll No.
+				</div>
+			</div>
+		<?php endif; ?>
+	
     <div class="col-md-6 col-md-offset-3 col-lg-6">
       <form class="form-horizontal" action="index.php" method="post" id="studentForm" data-toggle="validator">
         <div class="form-group">

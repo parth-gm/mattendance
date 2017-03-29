@@ -36,14 +36,13 @@
             }
             else
             {
-               header("location:../index.php");
+               header("location:../index.php?invalid=y");
             }
             
             
           }else
           {
-             header("location:../index.php");
-            echo "problem with credential";   
+             header("location:../index.php?invalid=y");
           }
         }
       }

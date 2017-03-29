@@ -118,7 +118,7 @@
 					echo "<br>your attandance:".$tper."<br>";
 				}
 				else {
-					header("location:../index.php");
+					header("location:index.php?student=invalid");
 				}
 
 		?>
@@ -126,18 +126,5 @@
 			</div>
 		</div>
 <?php else: ?>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-lg-12">
-				<h1>Sorry!</h1>
-				
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 col-lg-12">
-				<p class="text-danger lead">Invalid Student Roll No.</p>
-				<p><a href="index.php">Try Again</a></p>
-			</div>
-		</div>
-	</div>
+	<?php header("location:index.php?student=invalid"); ?>
 <?php endif; ?>
