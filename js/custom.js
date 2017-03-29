@@ -30,9 +30,22 @@ $(document).ready(function () {
 	$('.chk-head').click(function () {
 		if ($('.chk-head').is(':checked')) {
 			$('.chk-present').prop('checked', true);
+			$("table tbody tr").addClass('info');
 		}
 		else {
 			$('.chk-present').prop('checked', false);
+			$("table tbody tr").removeClass('info');
+		}
+	});
+	
+	// toglle row class
+	$("table tbody tr").click(function() {
+		$(this).toggleClass("info");
+		if ($(this).hasClass('info')) {
+			$(this).find('.chk-present').prop('checked', true);
+		}
+		else {
+			$(this).find('.chk-present').prop('checked', false);
 		}
 	});
 	
