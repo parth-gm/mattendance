@@ -1,3 +1,7 @@
+<?php
+  include 'config1.php';
+?>
+
 <div class="panel panel-warning">
   <div class="panel-heading">
     <h3 class="panel-title">Pending Attendance</h3>
@@ -13,8 +17,17 @@
     <h3 class="panel-title">Today's Attendance</h3>
   </div>
   <div class="panel-body">
-    <p><a href="#">Class JT of <strong>Today's</strong></a></p>
-		<p><a href="#">Class DFS of <strong>Today's</strong></a></p>
+		<?php
+			$query_subject = "SELECT subject.name, subject.id from subject INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid = {$_SESSION['uid']}  ORDER BY subject.name";
+			$sub=$conn->query($query_subject);
+			$rsub=$sub->fetchAll(PDO::FETCH_ASSOC);
+			$today = date("d/m/Y");
+			$todayQuery = date("d-m-Y");
+			$noOfSubject = count($rsub);
+			for($i = 0; $i<$noOfSubject; $i++) {
+				print "<p><a href='index.php?subject=" . $rsub[$i]['id'] . "&date=" . $todayQuery ."'>Class <strong>" . $rsub[$i]['name'] ."</strong> of <strong>Today's</strong> (" . $today .")</a></p>";
+			}
+		?>
   </div>
 </div>
 

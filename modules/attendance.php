@@ -15,7 +15,10 @@
 				<div class="form-group">
 					<label for="select" class="control-label">Subject:</label>
 					<?php
-						$sub=$conn->query('select * from subject ');
+											
+						$query_subject = "SELECT subject.name, subject.id from subject 
+INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid = {$_SESSION['uid']}  ORDER BY subject.name";
+						$sub=$conn->query($query_subject);
 						$rsub=$sub->fetchAll(PDO::FETCH_ASSOC);
 						echo "<select name='subject' class='form-control' required='required'>";
 						for($i = 0; $i<count($rsub); $i++)

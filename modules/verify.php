@@ -16,23 +16,25 @@
 
           
     
-          $stmt = $conn->prepare("SELECT * FROM user WHERE uname= '$nm' AND password='$pass'"); 
+          $stmt = $conn->prepare("SELECT uid, uname FROM user WHERE uname= '$nm' AND password='$pass'"); 
             $stmt->execute();
 
              
              $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-              print_r($result);
+              // print_r($result);
             if(count($result))
             {
-              print_r($result);
-          
-            echo "<br>sucssess"; 
-            session_start();
+            
+            $uid = $result[0]['uid'];
+						$uname = $result[0]['uname'];
+						session_start();
             // Use $HTTP_SESSION_VARS with PHP 4.0.6 or less
             
                 $_SESSION['islogin'] ="1";
+								$_SESSION['uid'] = $uid;
+								$_SESSION['uname'] = $uname;
             
-							header("location:../index.php");
+							header("location:../index.php?page=dashboard");
             }
             else
             {
