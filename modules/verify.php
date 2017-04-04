@@ -16,8 +16,8 @@
 
           
     
-          $stmt = $conn->prepare("SELECT uid, uname FROM user WHERE uname= '$nm' AND password='$pass'"); 
-            $stmt->execute();
+          $stmt = $conn->prepare("SELECT uid, uname FROM user WHERE uname= ? AND password=?"); 
+            $stmt->execute(array($nm,$pass));
 
              
              $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
