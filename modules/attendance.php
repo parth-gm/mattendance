@@ -1,5 +1,8 @@
 <?php include 'config1.php';?>
 <?php
+	
+
+	echo $_SESSION['uid'];
 	$updateFlag = 0;
 ?>
 
@@ -139,7 +142,7 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 						// prepare sql and bind parameters
 					
 							$id = $_POST['subject'];
-							$uid = 1;
+							$uid = $_SESSION['uid'];
 							$p = 0;
 							$st_sid =  $_POST['st_sid'];
 							$attt_aid =  $_POST['att_id'];
@@ -173,7 +176,7 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 							$date = $_POST['date'];
 						$tstamp = strtotime($date);
 							$id = $_POST['subject'];
-							$uid = 1;
+							$uid = $_SESSION['uid'];
 							$p = 0;
 							$st_sid =  $_POST['st_sid'];
 							$ispresent = array();
@@ -200,7 +203,8 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 									$stmtInsert->execute();
 							//	echo "data upadted".$j;
 						}
-						echo"<br><strong>You Are Succesfully Take Attendance</strong>";		
+						echo"<br><h3><strong>You Are Succesfully Take Attendance<h3></strong><br>";	
+						echo"<a href='./modules/facultydata.php'>to view final attandance</a>";	
 					}
 				}			
 			?>
