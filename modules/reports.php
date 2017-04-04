@@ -14,7 +14,7 @@
 
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
-			<form action="" method="GET" class="form-inline" data-toggle="validator">
+			<form action="" method="POST" class="form-inline" data-toggle="validator">
 				<div class="form-group">
 					<label for="select" class="control-label">Subject:</label>
 					<?php
@@ -30,7 +30,7 @@
 						echo "<select name='subject' class='form-control' required='required'>";
 						for($i = 0; $i<count($rsub); $i++)
 						{
-							if ($_GET['subject'] == $rsub[$i]['id']) {
+							if ($_POST['subject'] == $rsub[$i]['id']) {
 								echo"<option value='". $rsub[$i]['id']."' selected='selected'>".$rsub[$i]['name']."</option>";
 							}
 							else {
@@ -43,12 +43,12 @@
 				
 				<div class="form-group" data-provide="datepicker">
 					<label for="select" class="control-label">From:</label>
-					<input type="date" name="sdate" class="form-control" required>
+					<input type="date" name="sdate" class="form-control" value="<?php print isset($_POST['sdate']) ? $_POST['sdate'] : ''; ?>" required>
 				</div>
 				
 				<div class="form-group" data-provide="datepicker">
 					<label for="select" class="control-label">To:</label>
-					<input type="date" name="edate" class="form-control" required>
+					<input type="date" name="edate" class="form-control" value="<?php print isset($_POST['edate']) ? $_POST['edate'] : ''; ?>" required>
 				</div>
 				
 				<input type="hidden" name="page" value="reports">
@@ -66,17 +66,20 @@
 
 				
 				$t=time();
+			
 
-				if(isset($_GET['submit']) && !empty($_GET['sdate']) && !empty($_GET['edate']) && ($_GET['edate'] > $_GET['sdate']) && ($_GET['sdate']<$t) && ($_GET['edate']<$t))
+				if(isset($_POST['submit']) && !empty($_POST['sdate']) && !empty($_POST['edate']) && ($_POST['edate'] > $_POST['sdate']) )                 
 				{
-					$sdat = $_GET['sdate'];
-					$edat= $_GET['edate'];
+					$sdat = $_POST['sdate'];
+					$edat = $_POST['edate'];
 
-					$selsub=$_GET['subject'];
+					$selsub=$_POST['subject'];
 					
 					$sdate = strtotime($sdat);
 					
 					$edate = strtotime($edat);
+				if(($sdate<$t) && ($edate<=$t) && ($edate >= $sdate))
+				{
 					// echo "sub id".$selsub."<br>";
 					// echo "user id".$suid."<br>";
 					// echo "starting date:".$sdat." "."ending date:".$edat."<br>";
@@ -153,7 +156,10 @@
 								}
 							}
 						}
-						$perc=(($present*100)/$totlec);
+						if($totlec!=0)
+							$perc=(($present*100)/$totlec);
+						else
+							$perc=0;
 						echo"<td>".$present."/".$totlec."</td>";
 						echo"<td>".$perc."</td>";
 						echo"</tr>";
@@ -161,9 +167,13 @@
 					}		
 					echo "</tbody>";
 					echo "</table>";
+				}else
+				{
+					echo"<h3>Invalid imformation Related to dates</h3>";
+				}
 
 				}else{
-					// echo"<h3>Please enter detail</h3>";
+					 echo"<h3>Please enter detail</h3>";
 				}
 
 
