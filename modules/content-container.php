@@ -22,6 +22,7 @@
 									case 'dashboard':
 									case 'reports':
 									case 'logout':
+									case 'help':
 										include 'modules/'.$page.'.php';
 										break;
 									default:
