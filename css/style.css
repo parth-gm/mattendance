@@ -312,3 +312,7 @@ h1 span {
 	font-weight: bold;
 	margin: 0;
 }
+
+span.label {
+	font-size: 95%;
+}
