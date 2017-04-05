@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
-					<h1 class="page-header"><?php print $tempnm . '<span> ( ' . $rollno . ' ) </span>'; ?>'s Attendance</h1>  
+					<h1 class="page-header capitalize"><?php print $tempnm . '<span> ( ' . $rollno . ' ) </span>'; ?>'s Attendance</h1>  
 				</div>
 			</div>
 			<div class="row">
@@ -40,15 +40,15 @@
 					 //print_r($result2);
 					 //echo count($result2);
 						 
-				echo "<table class='table table-striped table-hover'>";
-					 echo"<tr><th>SUBJECT</th>";
+				echo "<table class='table table-striped table-hover reports-table'>";
+					 echo"<tr><th>Subject</th>";
 						for($k=0;$k<count($result2);$k++)
 						{
 							$tmdat=$result2[$k]['date'];
 							echo"<th>".date("d-m-Y",$tmdat)."</th>";
 						}//echo(date("Y-m-d",$t));
 							
-						echo"<th>TOTAL</th><th colspan='2'>PER%</th></tr>";
+						echo"<th>Total</th><th colspan='2'>%</th></tr>";
 					
 					 $ssql = "SELECT id FROM student_subject where $tempid=sid";
 					 $stmt3 = $conn->prepare($ssql);
@@ -68,7 +68,7 @@
 					$stmt4->execute();
 						$result4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);	
 						$sub=$result4[0]['name'];
-						echo "<td>$sub</td>";
+						echo "<td><h6>$sub</h6></td>";
 						for($i=0;$i<count($result2);$i++)
 						 {
 							$tmdat=$result2[$i]['date'];
@@ -79,7 +79,7 @@
 						$ttaken++;
 						$dttaken++;
 						 if (empty($result1)) {
-								echo " <td>NT</td>";
+								echo " <td><span class='text-warning'>Not Taken</span></td>";
 								$nottaken++;
 								$dnottaken++;
 						 }else
@@ -87,13 +87,13 @@
 							$res=$result1[0]['ispresent'];
 							if($res==1)
 							{
-								echo " <td>P</td>";
+								echo " <td><span class='text-success'>Present</span></td>";
 								$present++;
 								$dpresent++;	
 							}
 								else
 								{
-									echo "<td>A</td>";
+									echo "<td><span class='text-danger'>Absent</span></td>";
 									$absent++;
 									$dabsent++;
 								}
@@ -102,11 +102,11 @@
 						 }
 							$dtlec=$dttaken-$dnottaken;
 							if($dtlec!=0)
-								$dtper=(100*$dpresent)/$dtlec;
+								$dtper=round((100*$dpresent)/$dtlec, 2);
 							else
 								$dtper=0;
-							echo"<td>".$dpresent."/".$dtlec."</td>";
-							echo"<td>".$dtper."</td>";
+							echo"<td><strong>".$dpresent."</strong>/".$dtlec."</td>";
+							echo"<td>".$dtper."&nbsp;%</td>";
 							echo"</tr>";
 
 					
@@ -114,8 +114,17 @@
 					echo "</table>";
 					$tlec=$ttaken-$nottaken;
 					$tper=(100*$present)/$tlec;
-					echo "<br>your present dayes out of working days:".$present."/".$tlec;
-					echo "<br>your attandance:".$tper."<br>";
+					
+					echo '<div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Summary Of Attendance</h3>
+                </div>
+                <div class="panel-body">
+                  <p>Present Days out of Working Days:&nbsp;<strong>' . $present . '/' . $tlec . '</strong></p>
+									<p>Attendance Percentage:&nbsp;<strong>' .$tper. '&nbsp;%</strong></p>
+                </div>
+              </div>';
+					
 				}
 				else {
 					header("location:index.php?student=invalid");

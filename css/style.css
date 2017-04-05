@@ -300,6 +300,10 @@ h1 span {
 	font-weight: bold;
 }
 
+.reports-table span.text-warning {
+	color: #c09853;
+}
+
 .reports-table h5 {
 	color: #317eac;
 	font-weight: bold;
@@ -311,8 +315,13 @@ h1 span {
 	color: #2fa4e7;
 	font-weight: bold;
 	margin: 0;
+	text-transform: capitalize;
 }
 
 span.label {
 	font-size: 95%;
+}
+
+.capitalize {
+	text-transform: capitalize;
 }

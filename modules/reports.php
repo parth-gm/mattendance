@@ -163,7 +163,7 @@
 							}
 						}
 						if($totlec!=0)
-							$perc=(($present*100)/$totlec);
+							$perc=round((($present*100)/$totlec), 2);
 						else
 							$perc=0;
 						echo"<td><strong>".$present."</strong>/".$totlec."</td>";
