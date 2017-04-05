@@ -1,8 +1,5 @@
-<?php include 'config1.php';?>
-<?php
-	
-
-	echo $_SESSION['uid'];
+<?php 
+	include 'config1.php';
 	$updateFlag = 0;
 ?>
 
@@ -166,8 +163,11 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 									$stmtInsert->bindParam(':aid', $attt_aid[$j]); 
 									$stmtInsert->execute();
 								//echo "data upadted";
-						}		
-						echo"<br><strong>You Are Succesfully Updated Attendance</strong>";	
+							}		
+						echo '<p>&nbsp;</p><div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Well done!</strong> Attendance Recorded Successfully!.
+              </div>';	
 
 					}
 					else {
@@ -203,8 +203,10 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 									$stmtInsert->execute();
 							//	echo "data upadted".$j;
 						}
-						echo"<br><h3><strong>You Are Succesfully Take Attendance<h3></strong><br>";	
-						echo"<a href='./modules/facultydata.php'>to view final attandance</a>";	
+						echo '<p>&nbsp;</p><div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Well done!</strong> Attendance Recorded Successfully!.
+              </div>';	
 					}
 				}			
 			?>

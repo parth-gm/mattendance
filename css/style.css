@@ -289,3 +289,26 @@ h1 span {
 .report-data {
 	overflow: auto;
 }
+
+.reports-table span.text-success {
+	color: #3c763d;
+	font-weight: bold;
+}
+
+.reports-table span.text-danger {
+	color: #a94442;
+	font-weight: bold;
+}
+
+.reports-table h5 {
+	color: #317eac;
+	font-weight: bold;
+	text-transform: capitalize;
+	margin: 0;
+}
+
+.reports-table h6 {
+	color: #2fa4e7;
+	font-weight: bold;
+	margin: 0;
+}

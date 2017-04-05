@@ -14,7 +14,7 @@
 
 	<div class="row">
 		<div class="col-md-12 col-lg-12">
-			<form action="" method="POST" class="form-inline" data-toggle="validator">
+			<form action="" method="GET" class="form-inline" data-toggle="validator">
 				<div class="form-group">
 					<label for="select" class="control-label">Subject:</label>
 					<?php
@@ -30,7 +30,7 @@
 						echo "<select name='subject' class='form-control' required='required'>";
 						for($i = 0; $i<count($rsub); $i++)
 						{
-							if ($_POST['subject'] == $rsub[$i]['id']) {
+							if ($_GET['subject'] == $rsub[$i]['id']) {
 								echo"<option value='". $rsub[$i]['id']."' selected='selected'>".$rsub[$i]['name']."</option>";
 							}
 							else {
@@ -43,12 +43,12 @@
 				
 				<div class="form-group" data-provide="datepicker">
 					<label for="select" class="control-label">From:</label>
-					<input type="date" name="sdate" class="form-control" value="<?php print isset($_POST['sdate']) ? $_POST['sdate'] : ''; ?>" required>
+					<input type="date" name="sdate" class="form-control" value="<?php print isset($_GET['sdate']) ? $_GET['sdate'] : ''; ?>" required>
 				</div>
 				
 				<div class="form-group" data-provide="datepicker">
 					<label for="select" class="control-label">To:</label>
-					<input type="date" name="edate" class="form-control" value="<?php print isset($_POST['edate']) ? $_POST['edate'] : ''; ?>" required>
+					<input type="date" name="edate" class="form-control" value="<?php print isset($_GET['edate']) ? $_GET['edate'] : ''; ?>" required>
 				</div>
 				
 				<input type="hidden" name="page" value="reports">
@@ -61,23 +61,29 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+		
+			<p>&nbsp;</p>
 			<div class="report-data">
+			
+			
 			<?php
 
 				
 				$t=time();
 			
 
-				if(isset($_POST['submit']) && !empty($_POST['sdate']) && !empty($_POST['edate']) && ($_POST['edate'] > $_POST['sdate']) )                 
+				if(isset($_GET['submit']) && !empty($_GET['sdate']) && !empty($_GET['edate']) && ($_GET['edate'] > $_GET['sdate']) && ($_GET['sdate']<$t) && ($_GET['edate']<$t))
 				{
-					$sdat = $_POST['sdate'];
-					$edat = $_POST['edate'];
+					$sdat = $_GET['sdate'];
+					$edat= $_GET['edate'];
 
-					$selsub=$_POST['subject'];
+					$selsub=$_GET['subject'];
 					
 					$sdate = strtotime($sdat);
 					
 					$edate = strtotime($edat);
+					
+				
 				if(($sdate<$t) && ($edate<=$t) && ($edate >= $sdate))
 				{
 					// echo "sub id".$selsub."<br>";
@@ -89,7 +95,7 @@
 					$rstu=$stu->fetchAll(PDO::FETCH_ASSOC);
 				//	print_r($rstu);
 				//	echo "<br><br>--------------<br>";
-					echo "<table class='table table-striped table-hover'>";
+					echo "<table class='table table-striped table-hover reports-table'>";
 					echo "<thead>";
 					echo "<tr>";
 					echo "<th>Roll No</th>";
@@ -104,8 +110,8 @@
 							echo "<th>".$thisDate."</th>";
 						}
 					}
-					echo "<th>pres/total</th>";
-					echo "<th>percent</th>";;
+					echo "<th>Present/Total</th>";
+					echo "<th>Precentage</th>";;
 					echo "</tr>";
 					echo "</thead>";
 					echo "</tbody>";
@@ -116,8 +122,8 @@
 						$absent=0;
 						$totlec=0;
 						$perc=0;
-						echo"<tr><td>".$rstu[$i]['rollno']."</td>";
-						echo "<td>".$rstu[$i]['name']."</td>";
+						echo"<tr><td><h6>".$rstu[$i]['rollno']."</h6></td>";
+						echo "<td><h5>".$rstu[$i]['name']."</h5></td>";
 						$dsid=$rstu[$i]['sid'];
 						
 						for($j=$sdate;$j<=$edate;$j=$j+86400)
@@ -143,11 +149,11 @@
 									if($result[0]['ispresent']==1)
 									{
 										$present++;
-										echo"<td>Present</td>";
+										echo"<td><span class='text-success'>Present</span></td>";
 									}
 									else
 									{
-										echo"<td>Absent</td>";
+										echo"<td><span class='text-danger'>Absent</span></td>";
 										$absent++;
 									}
 								}else
@@ -160,8 +166,8 @@
 							$perc=(($present*100)/$totlec);
 						else
 							$perc=0;
-						echo"<td>".$present."/".$totlec."</td>";
-						echo"<td>".$perc."</td>";
+						echo"<td><strong>".$present."</strong>/".$totlec."</td>";
+						echo"<td>".$perc."&nbsp;%</td>";
 						echo"</tr>";
 						
 					}		
@@ -169,11 +175,14 @@
 					echo "</table>";
 				}else
 				{
-					echo"<h3>Invalid imformation Related to dates</h3>";
+					print '<div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Sorry!</strong>Please enter correct date range.
+              </div>';
 				}
 
 				}else{
-					 echo"<h3>Please enter detail</h3>";
+					 // echo"<h3>Please enter detail</h3>";
 				}
 
 
