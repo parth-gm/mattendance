@@ -13,6 +13,9 @@
 						<a href="index.php"><i class="fa fa-pencil-square-o"></i> Take Attendance</a>
 				</li>
 				<li>
+						<a href="index.php?page=studentinfo"><i class="fa fa-pencil-square-o"></i> Assigned to You</a>
+				</li>
+				<li>
 						<a href="index.php?page=reports"><i class="fa fa-book"></i> Reports</a>
 				</li>
 				<li>

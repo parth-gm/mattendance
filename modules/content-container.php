@@ -23,6 +23,7 @@
 									case 'reports':
 									case 'logout':
 									case 'help':
+									case 'studentinfo':
 										include 'modules/'.$page.'.php';
 										break;
 									default:

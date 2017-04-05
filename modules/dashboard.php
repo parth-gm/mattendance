@@ -93,7 +93,7 @@
     <h3 class="panel-title">You have</h3>
   </div>
   <div class="panel-body">
-    <p><i class="fa fa-book"></i><strong><?php print $noOfSubject; ?></strong> Subjects</p>
+    <p><i class="fa fa-book"></i> <a href="index.php?page=studentinfo"> <strong><?php print $noOfSubject; ?></strong> Subjects </a></p>
 		<?php
 			$studentQuery = "SELECT COUNT(DISTINCT sid) as student_count FROM `user_subject` INNER JOIN student_subject WHERE user_subject.id = student_subject.id AND user_subject.uid = $userId";
 			$stmtStudent = $conn->prepare($studentQuery); 
@@ -102,7 +102,7 @@
 		?>
 		
 		<?php if(!empty($resultStudent)) : ?>
-			<p><i class="fa fa-users"></i> <strong><?php print $resultStudent[0]['student_count'] ?></strong> Students</p>
+			<p><i class="fa fa-users"></i> <a href="index.php?page=studentinfo"><strong><?php print $resultStudent[0]['student_count'] ?></strong> Students</a></p>
 		<?php else: ?>
 			<p><i class="fa fa-users"></i> No Students assigned to you!</p>
 		<?php endif; ?>
