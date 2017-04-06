@@ -128,9 +128,10 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 			<input type="hidden" name="date" value="<?php print isset($_GET['date']) ? $_GET['date'] : ''; ?>">
 			<input type="hidden" name="subject" value="<?php print isset($_GET['subject']) ? $_GET['subject'] : ''; ?>">
 			<input type="submit" class="btn btn-primary btn-block" name="sbt_top" value="Save Attendance">
-
-			<?php endif;?>
+			
 			</form>
+			<?php endif;?>
+			
 			<?php
 
 				if (isset($_POST['sbt_top'])) {

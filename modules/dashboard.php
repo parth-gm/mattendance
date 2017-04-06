@@ -15,7 +15,7 @@
   <div class="panel-body">
 		<?php
 			
-			for($i = 1; $i < 6; $i++) {
+			for($i = 1; $i < 8; $i++) {
 				$dateCurrentYMD = date('Y-m-d', strtotime($todayYMD ." -$i day"));
 			
 				$queryTimeStamp = strtotime($dateCurrentYMD);
@@ -29,25 +29,27 @@
 				$todayDBQuery = strtotime(date("Y-m-d"));
 				$noOfSubjectPending = count($rsubPending);
 				
-				for($j = 0; $j<$noOfSubjectPending; $j++) {
-					$subIdP = $rsubPending[$j]['id'];
-					$sqlPending = "SELECT sid, ispresent FROM attendance WHERE id=$subIdP AND date=$queryTimeStamp AND uid=$userId";
-					$stmtP = $conn->prepare($sqlPending); 
-					$stmtP->execute();
-					$resultP = $stmtP->fetchAll(PDO::FETCH_ASSOC); 
-					if(!empty($resultP)){
-						print "<p><a href='index.php?subject=" . $subIdP . "&date=" . $dateCurrentYMD ."'>Class <strong>" . $rsubPending[$j]['name'] ."</strong> of <strong>" . $dateCurrent ."</strong></a> <span class='label label-success'>Attendance Recoreded</span> </p>";
+				$weekday= strtolower(date("l", strtotime($dateCurrentYMD)));
+				
+				if(($weekday!="saturday") && ($weekday!="sunday")) {
+					for($j = 0; $j<$noOfSubjectPending; $j++) {
+						$subIdP = $rsubPending[$j]['id'];
+						$sqlPending = "SELECT sid, ispresent FROM attendance WHERE id=$subIdP AND date=$queryTimeStamp AND uid=$userId";
+						$stmtP = $conn->prepare($sqlPending); 
+						$stmtP->execute();
+						$resultP = $stmtP->fetchAll(PDO::FETCH_ASSOC); 
+						if(!empty($resultP)){
+							print "<p><a href='index.php?subject=" . $subIdP . "&date=" . $dateCurrentYMD ."'>Class <strong>" . $rsubPending[$j]['name'] ."</strong> of <strong>" . $dateCurrent ."</strong></a> <span class='label label-success'>Attendance Recoreded</span> </p>";
+						}
+						else {
+							print "<p><a href='index.php?subject=" . $subIdP . "&date=" . $dateCurrentYMD ."'>Class <strong>" . $rsubPending[$j]['name'] ."</strong> of <strong>" . $dateCurrent ."</strong></a> <span class='label label-warning'>Mark Attendance Now!</span></p>";
+						}
 					}
-					else {
-						print "<p><a href='index.php?subject=" . $subIdP . "&date=" . $dateCurrentYMD ."'>Class <strong>" . $rsubPending[$j]['name'] ."</strong> of <strong>" . $dateCurrent ."</strong></a> <span class='label label-warning'>Mark Attendance Now!</span></p>";
+					
+					if ($i !== 7) {
+						print "<hr>";
 					}
 				}
-				
-				if ($i !== 5) {
-					print "<hr>";
-				}
-				
-				
 			}
 				
 		?>
