@@ -8,7 +8,6 @@
     <title>Bootstrap 101 Template</title>
     
     <link href="css/bootstrap.min.css" rel="stylesheet">   
-    <link href="css/font-awesome.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<script src="js/jquery.min.js"></script>
 		<script src="js/validator.min.js"></script>

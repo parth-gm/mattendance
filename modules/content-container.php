@@ -9,7 +9,7 @@
 				<div class="row">
 				<?php
 					$start=false;
-					session_start();
+					// session_start();
 					
 					if (isset($_POST['student'])) {
 						include 'modules/studentdata.php';
@@ -36,8 +36,23 @@
 							}
 						}
 						else {
-							include 'modules/login.php';
-							//include 'modules/attendance.php';
+							if (isset($_GET['page'])) {
+								$page = $_GET['page'];
+								switch ($page) {
+									case 'teacherspage':
+										include 'modules/teacherspage.php';
+										break;
+									case 'studentspage':
+										include 'modules/studentspage.php';
+										break;
+									default:
+										include 'modules/login.php';
+										break;
+								}
+							}
+							else {
+								include 'modules/login.php';
+							}
 						}
 					}
 					?>
