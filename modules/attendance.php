@@ -47,6 +47,12 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 			<?php
 				if(isset($_GET['date']) && isset($_GET['subject'])) :
 			?>
+			
+			<?php 
+				$todayTime = time();
+				$submittedDate = strtotime($_GET['date']);
+				if ($submittedDate <= $todayTime) :
+			?>
 			<form action="index.php" method="post">
 			
 			<div class="margin-top-bottom-medium">
@@ -130,6 +136,21 @@ INNER JOIN user_subject WHERE user_subject.id = subject.id AND user_subject.uid 
 			<input type="submit" class="btn btn-primary btn-block" name="sbt_top" value="Save Attendance">
 			
 			</form>
+			
+			<?php
+				else :
+			?>
+			
+			<p>&nbsp;</p>
+			<div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong>Sorry!</strong> Attendance cannot be recorded for future dates!.
+			</div>	
+			
+			<?php
+				endif;
+			?>
+			
 			<?php endif;?>
 			
 			<?php
