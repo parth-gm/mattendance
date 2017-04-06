@@ -62,12 +62,6 @@
       </form>
     </div>  
   </div>
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-lg-6 text-center">
-			<p>&copy; 2017 mAttendance.</p>
-		</div>
-	</div>
-	
 </div>
 
 <script>

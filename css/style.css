@@ -325,3 +325,17 @@ span.label {
 .capitalize {
 	text-transform: capitalize;
 }
+
+footer {
+	padding-top: 10px;
+	position: fixed;
+  bottom: 0;
+  background-color: #373435;
+  width: 100%;
+  text-align: center;
+	color: #fff;
+}
+
+footer img {
+	width: 200px;
+}
